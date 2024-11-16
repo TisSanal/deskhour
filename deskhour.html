@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Work Hours Calculator</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #4CAF50;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 16px;
+            color: #333;
+            margin-top: 10px;
+            text-align: left;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            margin-top: 8px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            color: #333;
+            box-sizing: border-box;
+        }
+
+        input[type="button"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 15px;
+            width: 100%;
+        }
+
+        input[type="button"]:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+        }
+
+        .success {
+            color: green;
+        }
+
+        .info {
+            font-size: 14px;
+            color: #777;
+            margin-top: 15px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Work Hours Calculator</h1>
+        <label for="txt1">Total hours needed:</label>
+        <input type="text" id="txt1" placeholder="Enter total hours" />
+
+        <label for="txt2">Days remaining:</label>
+        <input type="text" id="txt2" placeholder="Enter days remaining" />
+
+        <label for="txt3">Total hours already worked:</label>
+        <input type="text" id="txt3" placeholder="Enter hours worked" />
+
+        <input type="button" value="Calculate" onclick="desk()" />
+
+        <div class="result" id="result"></div>
+        <div class="info">
+            <p>Tip: Ensure all fields are filled correctly to get the right result.</p>
+        </div>
+    </div>
+
+    <script>
+        function desk() {
+            var hourNeeded = parseFloat(document.getElementById("txt1").value);
+            var daysRemaining = parseFloat(document.getElementById("txt2").value);
+            var totalHours = parseFloat(document.getElementById("txt3").value);
+
+            // Validate inputs
+            if (isNaN(hourNeeded) || isNaN(daysRemaining) || isNaN(totalHours)) {
+                document.getElementById("result").innerHTML = "<span class='error'>Please enter valid numerical values in all fields.</span>";
+                return;
+            }
+
+            if (hourNeeded <= 0 || daysRemaining <= 0 || totalHours < 0) {
+                document.getElementById("result").innerHTML = "<span class='error'>Values must be greater than zero (except for hours worked).</span>";
+                return;
+            }
+
+            // Perform calculation
+            if (daysRemaining > 0) {
+                var remainingHours = hourNeeded - totalHours;
+                if (remainingHours <= 0) {
+                    document.getElementById("result").innerHTML = "<span class='success'>No additional hours needed!</span>";
+                    return;
+                }
+
+                var hoursPerDay = remainingHours / daysRemaining;
+
+                // Convert decimal hours into hours and minutes
+                var hours = Math.floor(hoursPerDay); // Integer part (hours)
+                var minutes = Math.round((hoursPerDay - hours) * 60); // Fractional part (converted to minutes)
+
+                // Display the result
+                document.getElementById("result").innerHTML = hours + " hours and " + minutes + " minutes per day";
+            } else {
+                document.getElementById("result").innerHTML = "<span class='error'>Invalid number of days remaining.</span>";
+            }
+        }
+    </script>
+</body>
+
+</html>
