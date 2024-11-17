@@ -26,6 +26,14 @@
             text-align: center;
         }
 
+        .container img {
+        max-width: 150px;
+        height: auto;
+        display: block;
+        margin: 10px auto; /* Reduced top and bottom space */
+        padding: 0; /* Ensure no padding around the image */
+    }
+
         h1 {
             color: #4CAF50;
             font-size: 24px;
@@ -88,12 +96,14 @@
             color: #777;
             margin-top: 15px;
         }
-
     </style>
 </head>
 
 <body>
     <div class="container">
+        <!-- Desktime Image -->
+        <img src="https://logotyp.us/file/desktime.svg" alt="Desktime Original Image" />
+
         <h1>Work Hours Calculator</h1>
         <label for="txt1">Total hours needed:</label>
         <input type="text" id="txt1" placeholder="Enter total hours" />
