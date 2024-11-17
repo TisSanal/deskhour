@@ -1,6 +1,6 @@
 {
-    "version": 2,
-    "builds": [
-      { "src": "deskhour.html", "use": "@vercel/static" }
+    "rewrites": [
+      { "source": "/", "destination": "deskhour.html" }
     ]
   }
+  
