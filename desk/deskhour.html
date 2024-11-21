@@ -27,12 +27,14 @@
         }
 
         .container img {
-        max-width: 150px;
-        height: auto;
-        display: block;
-        margin: 10px auto; /* Reduced top and bottom space */
-        padding: 0; /* Ensure no padding around the image */
-    }
+            max-width: 150px;
+            height: auto;
+            display: block;
+            margin: 10px auto;
+            /* Reduced top and bottom space */
+            padding: 0;
+            /* Ensure no padding around the image */
+        }
 
         h1 {
             color: #4CAF50;
@@ -139,26 +141,30 @@
                 return;
             }
 
-            // Perform calculation
-            if (daysRemaining > 0) {
-                var remainingHours = hourNeeded - totalHours;
-                if (remainingHours <= 0) {
-                    document.getElementById("result").innerHTML = "<span class='success'>No additional hours needed!</span>";
-                    return;
-                }
-
-                var hoursPerDay = remainingHours / daysRemaining;
-
-                // Convert decimal hours into hours and minutes
-                var hours = Math.floor(hoursPerDay); // Integer part (hours)
-                var minutes = Math.round((hoursPerDay - hours) * 60); // Fractional part (converted to minutes)
-
-                // Display the result
-                document.getElementById("result").innerHTML = hours + " hours and " + minutes + " minutes per day";
-            } else {
-                document.getElementById("result").innerHTML = "<span class='error'>Invalid number of days remaining.</span>";
+            // Calculate remaining hours
+            var remainingHours = hourNeeded - totalHours;
+            if (remainingHours <= 0) {
+                document.getElementById("result").innerHTML = "<span class='success'>No additional hours needed!</span>";
+                return;
             }
+
+            // Calculate hours needed per day
+            var hoursPerDay = remainingHours / daysRemaining;
+
+            // Convert decimal hours into hours and minutes
+            var hours = Math.floor(hoursPerDay); // Integer part (hours)
+            var minutes = Math.round((hoursPerDay - hours) * 60); // Fractional part (converted to minutes)
+
+            // Handle rounding issues
+            if (minutes === 60) {
+                hours += 1;
+                minutes = 0;
+            }
+
+            // Display the result
+            document.getElementById("result").innerHTML = `${hours} hours and ${minutes} minutes per day`;
         }
+
     </script>
 </body>
 
